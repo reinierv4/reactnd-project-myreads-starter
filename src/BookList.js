@@ -5,22 +5,7 @@ import * as BooksAPI from './BooksAPI'
 
 
 class BookList extends React.Component{
-	state = {
-		currentlyReading: [],
-		wantToRead: [],
-		read: []
-	}
 	
-	componentDidMount() {
-		BooksAPI.getAll().then( (books) => {
-			const currentlyReading = books.filter(book => book.shelf === "currentlyReading");
-			const wantToRead = books.filter(book => book.shelf === "wantToRead");
-			const read = books.filter(book => book.shelf === "read");
-			this.setState({
-				currentlyReading, wantToRead, read
-			})
-		})
-	}
 
 	render(){
 		return(
@@ -29,15 +14,15 @@ class BookList extends React.Component{
 				<div className="list-books-content">
                 	<Bookshelf 
                 		shelfTitle="Currently Reading"
-                		books = {this.state.currentlyReading}
+                		books = {this.props.books.filter(book => book.shelf === "currentlyReading")}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Want to Read"
-                		books = {this.state.wantToRead}
+                		books = {this.props.books.filter(book => book.shelf === "wantToRead")}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Read"
-                		books = {this.state.read}
+                		books = {this.props.books.filter(book => book.shelf === "read")}
                 	/>
                 </div>
             </div>
