@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import BookList from './BookList'
 import SearchBook from './SearchBook'
 import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './App.css'
 
 class App extends React.Component {
@@ -34,9 +35,16 @@ class App extends React.Component {
             component={SearchBook}
           />
           <Route exact path="/" render={ () => (
-            <BookList 
+            <div>
+              <BookList 
               books={this.state.books} 
-            />
+              />
+              <div className="open-search">
+                  <Link to="/search">
+                    Courses
+                  </Link>
+              </div>
+            </div>
           )}/>
         
       </div>
