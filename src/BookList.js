@@ -4,31 +4,34 @@ import Bookshelf from './Bookshelf'
 import * as BooksAPI from './BooksAPI'
 
 
-class BookList extends React.Component{
+const BookList = (props) => {
 	
-
-	render(){
-		return(
-			<div className="list-books">
+	return(
+		<div>
+            <div className="list-books">
 				<BookListTitle title="My Reads"/>
 				<div className="list-books-content">
                 	<Bookshelf 
                 		shelfTitle="Currently Reading"
-                		books = {this.props.books.filter(book => book.shelf === "currentlyReading")}
+                		books={props.books.filter(book => book.shelf==="currentlyReading")}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Want to Read"
-                		books = {this.props.books.filter(book => book.shelf === "wantToRead")}
+                		books={props.books.filter(book => book.shelf==="wantToRead")}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Read"
-                		books = {this.props.books.filter(book => book.shelf === "read")}
+                		books={props.books.filter(book => book.shelf==="read")}
                 	/>
                 </div>
             </div>
-				
-		)
-	}
+            <div className="open-search">
+                <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            </div>
+        </div>
+    
+	)
+	
 }
 
 export default BookList
