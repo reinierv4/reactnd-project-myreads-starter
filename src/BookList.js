@@ -14,14 +14,17 @@ const BookList = (props) => {
                 	<Bookshelf 
                 		shelfTitle="Currently Reading"
                 		books={props.books.filter(book => book.shelf==="currentlyReading")}
+                        onChangeShelf = {props.onChangeShelf}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Want to Read"
                 		books={props.books.filter(book => book.shelf==="wantToRead")}
+                        onChangeShelf = {props.onChangeShelf}
                 	/>
                 	<Bookshelf 
                 		shelfTitle="Read"
                 		books={props.books.filter(book => book.shelf==="read")}
+                        onChangeShelf = {props.onChangeShelf}
                 	/>
                 </div>
             </div>
