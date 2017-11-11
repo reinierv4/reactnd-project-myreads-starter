@@ -25,15 +25,22 @@ class App extends React.Component {
   }
 
   changeShelf(book, value) {
-    BooksAPI.update(book, value);
-    this.setState({
-      books: this.state.books.map( b => {
-        if(b.id===book.id){
-          b.shelf=value 
-        } 
-        return b
+    BooksAPI.update(book, value).then( () => {
+      BooksAPI.getAll().then( (books) => {
+        this.setState({
+          books
+        })
       })
-    })
+    });
+    //This approach is much faster, is it allowed???
+    // this.setState({
+    //   books: this.state.books.map( b => {
+    //     if(b.id===book.id){
+    //       b.shelf=value 
+    //     } 
+    //     return b
+    //   })
+    // })
   }
 
 
