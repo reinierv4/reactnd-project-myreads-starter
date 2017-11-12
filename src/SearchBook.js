@@ -34,10 +34,13 @@ class SearchBook extends React.Component {
   }
   
   updateSearchResults(searchText){
+    console.log(`Searching for: ${searchText}`)
     BooksAPI.search(searchText, 10).then( (booksFromSearch) => {
       this.setState({
         booksFromSearch
       })
+    }).catch(function(e) {
+      console.log(e);
     })
     
     
@@ -61,7 +64,7 @@ class SearchBook extends React.Component {
           <ol className="books-grid">
           {this.state.booksFromSearch &&
               this.state.booksFromSearch.length > 0 &&
-                this.state.booksFromSearch.map(book => <Book book={book}/>) }
+                this.state.booksFromSearch.map(book => <Book book={book} onChangeShelf={this.props.onChangeShelf}/>) }
           </ol>
         </div>
       </div>
