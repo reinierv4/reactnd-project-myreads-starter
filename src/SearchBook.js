@@ -10,6 +10,7 @@ class SearchBook extends React.Component {
     super(props);
     this.state = {
       value: '',
+      booksFromSearchListed: [],
       booksFromSearch: []
     }
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,7 @@ class SearchBook extends React.Component {
     if(searchText === ""){
       this.setState({
         value: searchText,
+        booksFromSearchListed: [],
         booksFromSearch: []
       })
     }else{
@@ -28,22 +30,20 @@ class SearchBook extends React.Component {
       },
         Util.debounce( () => ( this.updateSearchResults(searchText) , 1000))
       )
-      
     }
-    
   }
   
   updateSearchResults(searchText){
-    console.log(`Searching for: ${searchText}`)
-    BooksAPI.search(searchText, 10).then( (booksFromSearch) => {
+    BooksAPI.search(searchText, 10).then( (booksFromSearching) => {
+      const booksFromSearchListed = this.props.books.filter( b => booksFromSearching.filter(books => books.id===b.id).length > 0 )
+      const booksFromSearch = booksFromSearching.filter( b => this.props.books.filter(books => books.id===b.id).length === 0 )
       this.setState({
+        booksFromSearchListed,
         booksFromSearch
       })
     }).catch(function(e) {
       console.log(e);
     })
-    
-    
   }
 
   render(){
@@ -62,9 +62,14 @@ class SearchBook extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
+          {this.state.booksFromSearchListed &&
+              this.state.booksFromSearchListed.length > 0 &&
+                this.state.booksFromSearchListed.map(book => <Book book={book} onChangeShelf={this.props.onChangeShelf}/>)
+          }
           {this.state.booksFromSearch &&
               this.state.booksFromSearch.length > 0 &&
-                this.state.booksFromSearch.map(book => <Book book={book} onChangeShelf={this.props.onChangeShelf}/>) }
+                this.state.booksFromSearch.map(book => <Book book={book} onChangeShelf={this.props.onChangeShelf}/>)
+          }
           </ol>
         </div>
       </div>

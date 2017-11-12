@@ -14,26 +14,28 @@ const Book = (props) => {
 					        <select onChange = {(event) => props.onChangeShelf(props.book, event.target.value)}>
 						        <option 
 						        	value="none" 
-						        	selected
-						        	disabled>
+						        	disabled
+						        	selected>
 						        	Move to...
-								</option>
+						        </option>
 						        <option 
 						        	value="currentlyReading" 
-						        	>
+						        	selected={props.book.shelf==="currentlyReading"}>
 						        	Currently Reading
 						        </option>
 						        <option 
 						        	value="wantToRead" 
-						        	>
-						        	Want to read
+						        	selected={props.book.shelf==="wantToRead"}>
+						        	Want to Read
 						        </option>
 						        <option 
 						        	value="read" 
+						        	selected={props.book.shelf==="read"}
 						        >
 						        	Read
 						        </option>
-						    </select>
+						        <option value="none">None</option>
+					        </select>
 					    )}
 					/>
 					<Route 
